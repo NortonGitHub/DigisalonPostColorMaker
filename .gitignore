@@ -1,2 +1,10 @@
 text.txt
 .vscode/*
+
+/node_modules/*
+!/node_modules/@simonwep/
+/node_modules/@simonwep/*
+!/node_modules/@simonwep/pickr/
+/node_modules/@simonwep/pickr/*
+!/node_modules/@simonwep/pickr/LICENSE
+!/node_modules/@simonwep/pickr/dist/
