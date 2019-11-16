@@ -1,4 +1,4 @@
-var backColor = '#FFF9B1';
+var backColor = '#fff2ab';
 //[最新記事, 最新の固定化記事]]
 let storageKeyList = ['latest','latestFixed'];
 
