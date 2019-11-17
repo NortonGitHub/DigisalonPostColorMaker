@@ -43,7 +43,6 @@ window.onload = function () {
     if (current == null || !current) {
       return;
     }
-    console.log(current);
     pickr.setColor(current);
   }).on('save', function (color, e) {
     sendToContents(color.toHEXA().toString());
@@ -61,13 +60,19 @@ var onValueFromBackground = function () {
   return chrome.extension.getBackgroundPage().toPopupValue;
 };
 
+/**
+ * content.jsに選択した色を送る
+ * @param {*} color 
+ */
 var sendToContents = function (color) {
+  console.log(color);
   chrome.tabs.query({
     active: true,
     currentWindow: true
   }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id,
       color,
-      function (response) {});
+      function (response) {
+      });
   });
 };

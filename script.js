@@ -1,7 +1,13 @@
-var defaultColor = '#fff2ab';
+//初期の背景色
+let defaultColor = '#fff2ab';
 //[最新記事, 最新の固定化記事]]
 let storageKeyList = ['latest', 'latestFixed', 'bgColor'];
 
+var currentLatest = {
+  'latest': "",
+  'latestFixed': "",
+  'bgColor': ""
+};
 
 window.onload = function () {
   this.getLatestId().then(function (latest) {
@@ -10,9 +16,10 @@ window.onload = function () {
   }).then(function (latest) {
     this.setLatestId(getArticles());
     sendMessageToBackground(latest.bgColor);
+    currentLatest['latest'] = latest.latest;
+    currentLatest['latestFixed'] = latest.latestFixed;
+    currentLatest['bgColor'] = latest.bgColor;
   });
-
-  this.onMessageFromPopup();
 };
 
 /**
@@ -48,9 +55,13 @@ var setLatestId = function (article) {
  * @param {*} color 
  */
 var setBackgroundColor = function (color) {
-  chrome.storage.local.set({
-    'bgColor': color
-  }, function () {
+  return new Promise(function (resolve) {
+    chrome.storage.local.set({
+      'bgColor': color
+    }, function () {
+      resolve(true);
+    });
+
   });
 }
 
@@ -88,7 +99,7 @@ var changeArticleStyle = function (article, latests) {
 /**
  * すべての記事のDOMを取得
  */
-var getArticles = function(){
+var getArticles = function () {
   //下記ですべての記事のDOMを取得
   var article = new Array();
   //最初に読み込まれる記事を含むDOMを取得
@@ -119,13 +130,12 @@ var changeColor = function (id, color) {
 /**
  * ポップアップから受け取った情報を戻り値として返す
  */
-var onMessageFromPopup = function () {
-  chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    setBackgroundColor(message);
-//    changeArticleStyle(getArticles(),message);
-    return;
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  setBackgroundColor(message).then(function () {
+    currentLatest['bgColor'] = message;
+    changeArticleStyle(getArticles(), currentLatest);
   });
-};
+});
 
 /**
  * データをbackgroundへ送信する
