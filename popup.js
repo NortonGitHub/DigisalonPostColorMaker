@@ -1,4 +1,7 @@
 window.onload = function () {
+
+  var beforeColor = "#000000";
+
   const pickr = Pickr.create({
     el: '.color-picker',
     theme: 'monolith',
@@ -27,14 +30,14 @@ window.onload = function () {
         rgba: true,
         hex: true,
         input: true,
-        clear: true,
+        cancel: true,
         save: true
       }
     },
 
     strings: {
       save: '適用',
-      clear: 'キャンセル'
+      cancel: 'キャンセル'
     }
   });
 
@@ -44,9 +47,18 @@ window.onload = function () {
       return;
     }
     pickr.setColor(current);
+  }).on('show',function(e){
+    var current = onValueFromBackground();
+    if (current == null || !current) {
+      return;
+    }
+    beforeColor = current;
+    pickr.setColor(current);
   }).on('save', function (color, e) {
+    if(color){
     sendToContents(color.toHEXA().toString());
-  }).on('clear', function (e) {
+    }
+  }).on('cancel', function (e) {
   });
 };
 

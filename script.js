@@ -133,7 +133,9 @@ var changeColor = function (id, color) {
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   setBackgroundColor(message).then(function () {
     currentLatest['bgColor'] = message;
-    changeArticleStyle(getArticles(), currentLatest);
+    changeArticleStyle(getArticles(), currentLatest).then(function () {
+      sendMessageToBackground(currentLatest.bgColor);
+    });
   });
 });
 
