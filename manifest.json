@@ -9,6 +9,19 @@
     "48" : "icon/48.png",
     "128" : "icon/128.png"
    },
+   "page_action": {
+    "default_icon":{
+      "16": "icon/16.png"
+    },
+    "default_title": "デジモン創作サロン新着記事カラーマーカー",
+    "default_popup": "popup.html"
+   },
+   "background":{
+    "scripts":[
+      "background.js"
+    ],
+    "persistent": false
+   },
    "content_scripts": [
      {
        "matches": ["https://www.digimonsalon.com/"],
@@ -16,6 +29,7 @@
      }
    ],
    "permissions": [
-     "storage"
+     "storage",
+     "declarativeContent"
    ]
 }
