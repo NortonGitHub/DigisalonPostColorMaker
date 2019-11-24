@@ -6,8 +6,22 @@
   "description" : "デジモン創作系共有サイト「デジモン創作サロン」のトップページ上の新着作品に色を付けます。",
   "icons" : {
     "16" : "icon/16.png",
+    "32" : "icon/32.png",
     "48" : "icon/48.png",
     "128" : "icon/128.png"
+   },
+   "page_action": {
+    "default_icon":{
+      "16": "icon/16.png"
+    },
+    "default_title": "デジモン創作サロン新着記事カラーマーカー",
+    "default_popup": "popup.html"
+   },
+   "background":{
+    "scripts":[
+      "background.js"
+    ],
+    "persistent": false
    },
    "content_scripts": [
      {
@@ -16,6 +30,7 @@
      }
    ],
    "permissions": [
-     "storage"
+     "storage",
+     "declarativeContent"
    ]
 }
