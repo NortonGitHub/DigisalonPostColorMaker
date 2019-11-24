@@ -17,4 +17,5 @@
 
 ## License
 * MIT 
+* Color Editor: pickr (Copyright (c) 2019 Simon Reinisch)
 * ICON LICENSE: © Copyright TopeconHeroes ! all right reserved.
